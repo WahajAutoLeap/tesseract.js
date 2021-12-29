@@ -1,9 +1,10 @@
 const createWorker = require('./createWorker');
 
-const recognize = async (image, langs, options) => {
+const recognize = async (image, langs, options, workerParams) => {
   const worker = createWorker(options);
   await worker.load();
   await worker.loadLanguage(langs);
+   await worker.setParameters(workerParams);
   await worker.initialize(langs);
   return worker.recognize(image)
     .finally(async () => {
